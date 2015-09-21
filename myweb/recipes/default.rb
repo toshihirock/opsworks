@@ -57,7 +57,7 @@ remote_file "/tmp/#{filename}" do
   source "#{remote_uri}"
 end
 
-package 'scl-utils' do
+package 'remi' do
   action :install
   provider Chef::Provider::Package::Rpm
   source "/tmp/#{filename}"
