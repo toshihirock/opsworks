@@ -68,7 +68,7 @@ package 'remi' do
   source "/tmp/#{filename}"
 end
 
-%w{php56 php56-php-fpm}.each do |pkg|
+%w{php56 php56-php-fpm php56-php-mbstring php56-php-mysqlnd php56-php-gd}.each do |pkg|
   yum_package pkg do
     options '--enablerepo=remi'
   end

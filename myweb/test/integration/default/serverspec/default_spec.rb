@@ -1,9 +1,12 @@
 require 'spec_helper'
 
 describe 'myweb::default' do
-  describe package('php56') do
-    it { should be_installed }
+  %w{php56 php56-php-mbstring php56-php-mysqlnd php56-php-gd}.each do |pkg|
+    describe package(pkg) do
+      it { should be_installed }
+    end
   end
+
   %w{nginx php56-php-fpm}.each do |pkg|
     describe service(pkg) do
       it { should be_enabled }
