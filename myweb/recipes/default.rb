@@ -12,8 +12,13 @@ package 'nginx-repo' do
   source "/tmp/#{filename}"
 end
 
-package 'nginx' do
-  options '--disablerepo=amzn-main'
+case node[:platform]
+when 'amazon'
+  package 'nginx' do
+    options '--disablerepo=amzn-main'
+  end
+when 'centos', 'redhat'
+  package 'nginx'
 end
 
 service 'nginx' do
