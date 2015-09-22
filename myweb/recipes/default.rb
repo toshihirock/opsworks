@@ -79,6 +79,12 @@ service 'php56-php-fpm' do
 end
 
 # set config
+directory '/srv/www' do
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
 execute 'action' do
   command "sed -i 's/apache/nginx/g' /opt/remi/php56/root/etc/php-fpm.d/www.conf"
   notifies :restart, "service[php56-php-fpm]"
@@ -89,7 +95,7 @@ cookbook_file '/etc/nginx/conf.d/default.conf' do
   notifies :restart, "service[nginx]"
 end
 
-cookbook_file '/usr/share/nginx/html/phpinfo.php' do
+cookbook_file '/srv/www/phpinfo.php' do
   source 'phpinfo.php'
   notifies :restart, "service[nginx]"
 end
