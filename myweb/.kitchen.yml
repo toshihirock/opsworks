@@ -6,6 +6,13 @@ driver:
     - curl -L https://www.chef.io/chef/install.sh | bash
   publish:
     - 8100:80
+  #name: ec2
+  #aws_ssh_key_id: ToshihirockKey
+  #security_group_ids: ["sg-d8df9abd"]
+  #region: ap-northeast-1
+  #availability_zone: ap-northeast-1a
+  #require_chef_omnibus: true
+  #instance_type: t2.micro
 
 transport:
   name: docker_cli
@@ -16,6 +23,22 @@ provisioner:
 platforms:
   #- name: ubuntu-14.04
   - name: centos-6.7
+  #  transport:
+  #    name: docker_cli
+
+  - name: AmazonLinux-20150301
+    driver:
+      image_id: ami-1c1b9f1c
+      name: ec2
+      aws_ssh_key_id: ToshihirockKey
+      security_group_ids: ["sg-d8df9abd"]
+      region: ap-northeast-1
+      availability_zone: ap-northeast-1a
+      require_chef_omnibus: true
+      instance_type: t2.micro
+    transport:
+      username: ec2-user
+      ssh_key: ~/.ssh/ToshihirockKey.pem
 
 suites:
   - name: default
