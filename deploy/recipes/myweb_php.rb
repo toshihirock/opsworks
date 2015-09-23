@@ -21,13 +21,8 @@ node[:deploy].each do |application, deploy|
     next
   end
 
-  bash "create db" do
-    code <<-EOS
-      "#{mysql_command} -e CREATE USER'wordpress-user'@'%' IDENTIFIED BY '#{dbname}'"
-      "#{mysql_command} -e CREATE DATABASE \`#{dbname}\`"
-      "#{mysql_command} -e GRANT ALL PRIVILEGES ON \`#{dbname}\`.*TO¥"wordpress-user¥"@¥"%¥""
-      "#{mysql_command} -e FLUSH PRIVILEGES"
-    EOS
+  execute "create mysql databases" do
+    command  "#{mysql_command} -e 'CREATE DATABASE #{dbname}'"
     not_if do
      system("#{mysql_command} -e 'SHOW DATASES' | egrep -e '^#{dbname}$'") 
     end
