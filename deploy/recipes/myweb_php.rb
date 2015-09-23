@@ -24,7 +24,7 @@ node[:deploy].each do |application, deploy|
   execute "create mysql databases" do
     command  "#{mysql_command} -e 'CREATE DATABASE #{dbname}'"
     not_if do
-     system("#{mysql_command} -e 'SHOW DATBASES' | egrep -e '^#{dbname}$'") 
+     system("#{mysql_command} -e 'SHOW DATABASES' | egrep -e '^#{dbname}$'") 
     end
   end
 
