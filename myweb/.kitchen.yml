@@ -16,6 +16,7 @@ provisioner:
 platforms:
   #- name: ubuntu-14.04
   - name: centos-6.7
+  - name: toshihirock/amzn-2015.09
 
   - name: AmazonLinux-20150301
     driver:
